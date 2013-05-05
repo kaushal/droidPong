@@ -15,6 +15,7 @@ public class SpecThread extends Thread implements Runnable{
 	private SinglePlayerLogic spl = null;
 	public MultiplayerLogic getMPGameState(){
 			return gs;
+	
 	}
 	
 	public SinglePlayerLogic getSPGameState(){

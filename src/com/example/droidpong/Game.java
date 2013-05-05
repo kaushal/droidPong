@@ -42,6 +42,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback2{
 	public void surfaceDestroyed(SurfaceHolder arg0) {
 		thread.stop();
 		
+		
 	}
 
 	@Override

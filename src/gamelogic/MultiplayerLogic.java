@@ -12,6 +12,7 @@ public class MultiplayerLogic {
 	// screen height and width 
 	// size of the ball for shenanigans
 	// ball velocity in x and y
+	int count = 1; 
 	int topScore = 0;
 	int bottomScore = 0;
 	int ballSize = 10;
@@ -40,40 +41,69 @@ public class MultiplayerLogic {
 	
 	
 	public void update() {
-		ballx = ballx + ballXVelocity;
-		bally = bally + ballYVelocity;
-		
-	
-		
 		if((bally + ballSize/2) < 95){ //Loosing
 			bottomScore += 1;
 			ballx = 250;
 			bally = 250;
 			ballYVelocity *= -1;
+			int ballXVelocity = 3;//(int)Math.sin((Math.random() * 6.2));
+			int ballYVelocity = 3;//(int)Math.sin((Math.random() * 6.2));
+			
 		}
 		else if((bally - ballSize/2) > 745){
 			topScore += 1;
 			ballx = 250;
 			bally = 250;
 			ballYVelocity *= -1;
+			int ballXVelocity = 3;//(int)Math.sin((Math.random() * 6.2));
+			int ballYVelocity = 3;//(int)Math.sin((Math.random() * 6.2));
+			
 		}
 		else if((ballx + ballSize/2) >= heightOfScreen|| (ballx - ballSize/2) <= 0){
 			ballXVelocity *= -1;
 		}
 		
-		else if((bally - ballSize/2) <= 105 && (ballx + ballSize/2) <= (topPaddleX + paddleLength/2) && (ballx - ballSize/2) >= (topPaddleX - paddleLength/2)){
+		else if((bally - ballSize/2) <= 105 && (ballx + ballSize/2) < (topPaddleX + paddleLength/2) && (ballx - ballSize/2) > (topPaddleX - paddleLength/2)){
 			ballYVelocity *= -1;
+			count++;
+			try {
+				Thread.sleep(25);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(count);
 		}
-		else if((bally + ballSize/2) >= 735 && (ballx + ballSize/2) <= (bottomPaddleX + paddleLength/2) && (ballx - ballSize/2) >= (bottomPaddleX - paddleLength/2)){
+		else if((bally + ballSize/2) >= 735 && (ballx + ballSize/2) < (bottomPaddleX + paddleLength/2) && (ballx - ballSize/2) > (bottomPaddleX - paddleLength/2)){
 			ballYVelocity *= -1;
-			System.out.println(bally);
+			count++;
+			try {
+				Thread.sleep(25);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(count);
 		}
+		ballx = ballx + ballXVelocity;
+		bally = bally + ballYVelocity;
 		
 		
+		if(count % 6 == 0){
+			if(ballXVelocity < 0)
+				ballXVelocity--;
+			else
+				ballXVelocity++;
+			if(ballYVelocity < 0)
+				ballYVelocity--;
+			else
+				ballYVelocity++;
+			
+		}
+			
+		//ballXVelocity *= 1.001;
+		//ballYVelocity = ballXVelocity;
 		//top of the ball connecting wiht the bottom of the top paddle
-		
-		
-		
 	}
 	
 	public boolean motionDetected(MotionEvent event) {

@@ -13,6 +13,7 @@ public class SpecThread extends Thread implements Runnable{
 	private Paint p;
 	private MultiplayerLogic gs = null;
 	private SinglePlayerLogic spl = null;
+	public Context ctx;
 	public MultiplayerLogic getMPGameState(){
 			return gs;
 	
@@ -24,10 +25,12 @@ public class SpecThread extends Thread implements Runnable{
 	public SpecThread(SurfaceHolder sh, Context ctx, Handler hand){
 		this.sh = sh; 
 		this.p = new Paint();
+		this.ctx = ctx;
+		
 		if(com.example.droidpong.MainActivity.level == 0)
-			this.gs = new MultiplayerLogic();
+			this.gs = new MultiplayerLogic(ctx);
 		else
-			this.spl = new SinglePlayerLogic();
+			this.spl = new SinglePlayerLogic(ctx);
 	}
 	
 	public void run(){

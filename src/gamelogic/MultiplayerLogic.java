@@ -1,5 +1,6 @@
 package gamelogic;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
@@ -38,7 +39,13 @@ public class MultiplayerLogic {
 	int bottomOfTopPaddle = 105;
 	int topOfBottomPaddle = 735;
 	
+	Context ctx;
 	
+	public MultiplayerLogic(Context ctx) {
+		// TODO Auto-generated constructor stub
+		this.ctx = ctx;
+	}
+
 	public void update() {
 		
 		
@@ -47,7 +54,7 @@ public class MultiplayerLogic {
 		if((bally + ballSize/2) < 95){ //Loosing
 			bottomScore += 1;
 			ballx = 250;
-			bally = 250;
+			bally = 420;
 			ballYVelocity *= -1;
 			int ballXVelocity = 3;//(int)Math.sin((Math.random() * 6.2));
 			int ballYVelocity = 3;//(int)Math.sin((Math.random() * 6.2));
@@ -55,7 +62,7 @@ public class MultiplayerLogic {
 		else if((bally - ballSize/2) > 745){
 			topScore += 1;
 			ballx = 250;
-			bally = 250;
+			bally = 420;
 			ballYVelocity *= -1;
 			int ballXVelocity = 3;//(int)Math.sin((Math.random() * 6.2));
 			int ballYVelocity = 3;//(int)Math.sin((Math.random() * 6.2));
@@ -135,6 +142,23 @@ public class MultiplayerLogic {
 		canvas.drawLine(0, 0, 500, 0, paint);
 		canvas.drawLine(0, 840, 500, 840, paint);
 		canvas.drawLine(500, 0, 500, 840, paint);
+		
+		Paint winText = new Paint();
+		winText.setARGB(200, 255, 255,255);
+		
+		
+		winText.setTextSize(60);
+		if(topScore >= 5){
+			winText.setARGB(200, 0, 0, 255);
+			canvas.drawText("Top Player Wins!", 5, 200, winText);
+			ballXVelocity = 0;
+			ballYVelocity = 0;
+		}else if(bottomScore >= 5){
+			winText.setARGB(200, 0, 255, 0);
+			canvas.drawText("Bottom Player Wins!", 1, 600, winText);
+			ballXVelocity = 0;
+			ballYVelocity = 0;
+		}
 		
 		
 	}

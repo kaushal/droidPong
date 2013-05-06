@@ -1,9 +1,15 @@
 package gamelogic;
 
+import com.example.droidpong.R;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.os.Looper;
 import android.view.MotionEvent;
 
 public class SinglePlayerLogic {
@@ -37,6 +43,12 @@ public class SinglePlayerLogic {
 	int bottomOfTopPaddle = 105;
 	int topOfBottomPaddle = 735;
 	
+	Context ctx;
+	
+	public SinglePlayerLogic(Context ctx){
+		this.ctx = ctx;
+	}
+	
 	
 	public void update() {
 		ballx = ballx + ballXVelocity;
@@ -52,13 +64,13 @@ public class SinglePlayerLogic {
 		if((bally + ballSize/2) < 95){ //Loosing
 			bottomScore += 1;
 			ballx = 250;
-			bally = 250;
+			bally = 420;
 			ballYVelocity *= -1;
 		}
 		else if((bally - ballSize/2) > 745){
 			topScore += 1;
 			ballx = 250;
-			bally = 250;
+			bally = 420;
 			ballYVelocity *= -1;
 		}
 			
@@ -86,6 +98,7 @@ public class SinglePlayerLogic {
 		return true;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void draw(Canvas canvas, Paint paint) {
 		canvas.drawRGB(20, 20, 20);
 		paint.setARGB(200, 255, 255,255);
@@ -107,6 +120,23 @@ public class SinglePlayerLogic {
 		canvas.drawLine(0, 0, 500, 0, paint);
 		canvas.drawLine(0, 840, 500, 840, paint);
 		canvas.drawLine(500, 0, 500, 840, paint);
+		
+		Paint winText = new Paint();
+		winText.setARGB(200, 255, 255,255);
+		
+		
+		winText.setTextSize(70);
+		if(topScore >= 5){
+			winText.setARGB(200, 255, 0, 0);
+			canvas.drawText("Computer Wins!", 5, 200, winText);
+			ballXVelocity = 0;
+			ballYVelocity = 0;
+		}else if(bottomScore >= 5){
+			winText.setARGB(200, 0, 255, 0);
+			canvas.drawText("  Human Wins!", 5, 200, winText);
+			ballXVelocity = 0;
+			ballYVelocity = 0;
+		}
 	}
 	
 

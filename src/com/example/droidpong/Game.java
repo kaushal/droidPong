@@ -15,6 +15,7 @@ import android.view.SurfaceView;
 public class Game extends SurfaceView implements SurfaceHolder.Callback2{
 	
 	SpecThread thread;
+	public Context ctx;
 	
 	public Game(Context ctx, AttributeSet att) {
 		
